@@ -1,0 +1,13 @@
+policies:
+  - name: ec2-instances
+    description: |
+      Checks for ec2 instances
+    resource: ec2
+    # action:
+    #   # send notification to security hub
+    #   - type: post-finding
+    #     description: |
+    #         EC2 instances are not allowed.
+    #     severity_normalized: 6
+    #     confidence: 100
+    #     compliance_status: FAILED

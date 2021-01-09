@@ -1,44 +1,68 @@
 <!--- NOTE: This is a template for your project README. Edit the content according to the comments provided.--->
 
-# <application_license_badge>
+# AWS SEA Cloud Custodian
 <!--- [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](./LICENSE) --->
-
-# <application_name>
-<!--- Description of the application. ---> 
-
-## Technical Details
-<!--- Technology Stack Used. ---> 
-
-## Third-Party Products/Libraries used and the licenses they are covered by
-<!--- product/library and path to the LICENSE --->
-<!--- Example: <library_name> - [![GitHub](<shield_icon_link>)](<path_to_library_LICENSE>) --->
 
 ## Project Status
 - [x] Development
 - [ ] Production/Maintenance
 
-## Documentation
-<!--- Point to another readme or create a GitHub Pages (https://guides.github.com/features/pages/) --->
+## Install
 
-## Security
-<!--- Authentication, Authorization, Policies, etc --->
+```bash
+pip install -r requirements.txt
+```
 
-## Files in this repository
-<!--- Use Tree to generate the file structure, try `tree -I '<excluded_paths>' -d -L 3`--->
+## Setup IAM Role
 
-## Getting Started
-<!--- setup env vars, secrets, instructions... --->
+Create `BCGOV_CloudCustodian` IAM role in all accounts with the permissions required to run the policy checks and actions.
 
-## Deployment (Local Development)
-* Developer Workstation Requirements/Setup:
-<!--- instruction on Minishift/Docker/Other services.. --->
+## c7n-org: Multi Account Custodian Execution
 
-* Application Specific Setup:
-<!--- instruction on setup local environment and dependencies.. --->
+### Download Script
 
+The script for generating an aws accounts config file is only distributed via git.
 
-## Deployment (OpenShift)
-<!--- Best to include details in a openshift/README.md --->
+```bash
+curl https://raw.githubusercontent.com/cloud-custodian/cloud-custodian/master/tools/c7n_org/scripts/orgaccounts.py -o orgaccounts.py
+```
+
+### Generate Accounts Config
+
+#### All OUs
+
+```bash
+python orgaccounts.py \
+    -f accounts.yml \
+    --role 'arn:aws:iam::{Id}:role/BCGOV_CloudCustodian' \
+```
+
+#### Workload OUs
+
+```bash
+python orgaccounts.py \
+    -f accounts-workload.yml \
+    --role 'arn:aws:iam::{Id}:role/BCGOV_CloudCustodian' \
+    --ou Dev --ou Test --ou Prod
+```
+
+#### Core OUs
+
+```bash
+python orgaccounts.py \
+    -f accounts-core.yml \
+    --role 'arn:aws:iam::{Id}:role/BCGOV_CloudCustodian' \
+    --ou core
+```
+
+### Running a Policy with c7n-org
+
+```bash
+# Find workload accounts that don't comply with the password policy
+c7n-org run -c accounts-workload.yml --dryrun -s output -u policy/common/password.yml --region ca-central-1
+```
+
+*Note: `--dryrun` prevents actions from being executed*
 
 ## Getting Help or Reporting an Issue
 <!--- Example below, modify accordingly --->

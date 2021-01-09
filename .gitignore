@@ -35,3 +35,15 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Cloud Custodian
+
+accounts*.yml
+accounts*.yaml
+output
+orgaccounts.py
+
+# Python
+
+.venv
+venv
