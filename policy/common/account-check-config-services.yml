@@ -1,0 +1,9 @@
+policies:
+  - name: account-check-config-services
+    resource: account
+    region: us-east-1
+    filters:
+      - type: check-config
+        all-resources: true
+        global-resources: true
+        running: true

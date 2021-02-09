@@ -1,0 +1,14 @@
+policies:
+  - name: non-compliant-ec2
+    resource: ec2
+    filters:
+     - type: config-compliance
+       eval_filters:
+        - type: value
+          key: ResultRecordedTime
+          value_type: age
+          value: 30
+          op: less-than
+       rules:
+        - custodian-ec2-encryption-required
+        - custodian-ec2-tags-required

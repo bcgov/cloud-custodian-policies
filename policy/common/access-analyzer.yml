@@ -1,0 +1,8 @@
+policies:
+  - name: account-access-analyzer
+    resource: account
+    filters:
+      - type: access-analyzer
+        key: 'status'
+        value: ACTIVE
+        op: eq
