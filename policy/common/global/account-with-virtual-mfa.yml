@@ -1,0 +1,8 @@
+#1.2 – Ensure multi-factor authentication (MFA) is enabled for all IAM users that have a console password
+policies:
+    - name: account-with-virtual-mfa
+      resource: account
+      region: ca-central-1
+      filters:
+        - type: has-virtual-mfa
+          value: true
