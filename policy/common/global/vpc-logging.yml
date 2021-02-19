@@ -1,1 +1,8 @@
 #[EC2.6] VPC flow logging should be enabled in all VPCs
+#To do:  then fiter against op value if passes
+policies:
+  - name: flow-logs-enabled
+    resource: vpc
+    region: ca-central-1
+    filters:
+      - flow-logs
