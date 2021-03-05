@@ -1,0 +1,73 @@
+{
+  "policy": {
+    "name": "flow-logs-enabled",
+    "resource": "vpc",
+    "region": "ca-central-1",
+    "filters": [
+      "flow-logs"
+    ]
+  },
+  "version": "0.9.10",
+  "execution": {
+    "id": "3058969d-f490-4b7b-b0a3-070e49fbcfed",
+    "start": 1614976658.6841607,
+    "end_time": 1614976659.576391,
+    "duration": 0.8922302722930908
+  },
+  "config": {
+    "region": "ca-central-1",
+    "regions": [
+      "ca-central-1"
+    ],
+    "cache": "~/.cache/cloud-custodian.cache",
+    "profile": null,
+    "account_id": "813318847992",
+    "assume_role": null,
+    "external_id": null,
+    "log_group": null,
+    "tracer": null,
+    "metrics_enabled": null,
+    "metrics": null,
+    "output_dir": ".",
+    "cache_period": 15,
+    "dryrun": false,
+    "authorization_file": null,
+    "subparser": "run",
+    "config": null,
+    "configs": [
+      "vpc-logging.yml"
+    ],
+    "policy_filters": [],
+    "resource_types": [],
+    "verbose": null,
+    "quiet": null,
+    "debug": false,
+    "skip_validation": false,
+    "command": "c7n.commands.run",
+    "vars": null
+  },
+  "sys-stats": {},
+  "api-stats": {
+    "ec2.DescribeFlowLogs": 1
+  },
+  "metrics": [
+    {
+      "MetricName": "ResourceCount",
+      "Timestamp": "2021-03-05T20:37:39.392623",
+      "Value": 1,
+      "Unit": "Count"
+    },
+    {
+      "MetricName": "ResourceTime",
+      "Timestamp": "2021-03-05T20:37:39.392623",
+      "Value": 0.535693883895874,
+      "Unit": "Seconds"
+    },
+    {
+      "MetricName": "ActionTime",
+      "Timestamp": "2021-03-05T20:37:39.576390",
+      "Value": 0.0,
+      "Unit": "Seconds"
+    }
+  ]
+}

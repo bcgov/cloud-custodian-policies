@@ -1,0 +1,79 @@
+{
+  "policy": {
+    "name": "password-minimum-length",
+    "description": "Checks for accounts without a minimum password\nlength policy of at least 12\n",
+    "resource": "account",
+    "filters": [
+      {
+        "type": "password-policy",
+        "key": "MinimumPasswordLength",
+        "value": 12,
+        "op": "gt"
+      }
+    ]
+  },
+  "version": "0.9.10",
+  "execution": {
+    "id": "81bef973-de5c-4875-a8af-90414522b682",
+    "start": 1614972674.8164518,
+    "end_time": 1614972676.0731905,
+    "duration": 1.2567386627197266
+  },
+  "config": {
+    "region": "ca-central-1",
+    "regions": [
+      "ca-central-1"
+    ],
+    "cache": "~/.cache/cloud-custodian.cache",
+    "profile": null,
+    "account_id": "813318847992",
+    "assume_role": null,
+    "external_id": null,
+    "log_group": null,
+    "tracer": null,
+    "metrics_enabled": null,
+    "metrics": null,
+    "output_dir": ".",
+    "cache_period": 15,
+    "dryrun": false,
+    "authorization_file": null,
+    "subparser": "run",
+    "config": null,
+    "configs": [
+      "password.yml"
+    ],
+    "policy_filters": [],
+    "resource_types": [],
+    "verbose": null,
+    "quiet": null,
+    "debug": false,
+    "skip_validation": false,
+    "command": "c7n.commands.run",
+    "vars": null
+  },
+  "sys-stats": {},
+  "api-stats": {
+    "iam.ListAccountAliases": 1,
+    "iam.GetAccountPasswordPolicy": 1
+  },
+  "metrics": [
+    {
+      "MetricName": "ResourceCount",
+      "Timestamp": "2021-03-05T19:31:15.878049",
+      "Value": 1,
+      "Unit": "Count"
+    },
+    {
+      "MetricName": "ResourceTime",
+      "Timestamp": "2021-03-05T19:31:15.879063",
+      "Value": 0.924537181854248,
+      "Unit": "Seconds"
+    },
+    {
+      "MetricName": "ActionTime",
+      "Timestamp": "2021-03-05T19:31:16.073190",
+      "Value": 0.0,
+      "Unit": "Seconds"
+    }
+  ]
+}

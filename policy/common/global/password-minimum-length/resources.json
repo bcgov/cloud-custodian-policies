@@ -1,0 +1,19 @@
+[
+  {
+    "account_id": "813318847992",
+    "account_name": "",
+    "c7n:password_policy": {
+      "MinimumPasswordLength": 14,
+      "RequireSymbols": true,
+      "RequireNumbers": true,
+      "RequireUppercaseCharacters": true,
+      "RequireLowercaseCharacters": true,
+      "AllowUsersToChangePassword": true,
+      "ExpirePasswords": true,
+      "MaxPasswordAge": 90,
+      "PasswordReusePrevention": 24,
+      "HardExpiry": false,
+      "PasswordPolicyConfigured": true
+    }
+  }
+]
