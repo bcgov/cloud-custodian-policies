@@ -1,4 +1,7 @@
 #[Config.1] AWS Config should be enabled, for region Canada
+# aws configservice describe-configuration-recorder-status is another way  to check this
+# due to how the checks are set, returning 0 means enabled, returning 1 means not enabled.
+
 policies:
   - name: config-compliance
     resource: account

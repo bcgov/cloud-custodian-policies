@@ -1,3 +1,5 @@
+#[IAM.8] Unused IAM user credentials should be removed
+# to do: check against federated and service accounts
 - name: iam-mfa-active-keys-no-login
   resource: iam-user
   filters:
