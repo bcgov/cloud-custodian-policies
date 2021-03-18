@@ -28,7 +28,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
-
+ 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
@@ -36,6 +36,11 @@ jobs:
           export PATH="/home/vsts/.local/bin:$PATH"
           pip3 install awscli --upgrade 
           pip install c7n --upgrade
+          export AWS_ACCESS_KEY_ID="ASIAXDJUAQB3GG2YCOH5" 
+          export AWS_SECRET_ACCESS_KEY="9idUzxS1p7XKba8y60tFr2IETQ9wGNcAHnyk64WY" 
+          export AWS_SESSION_TOKEN="FwoGZXIvYXdzECYaDEjENAHbEpNRCFyjfCLtAS+e2E6HukFDqugRdsGRax7vOAQROyRjJYCjDjOS6BKh5xA6ueuey69UwWY9h72N97DNoSBJzpUEm6hMN0etLXe5i9TqwMzdDHIFwCfgqvTCYZMiIyiisw63PWgk8n/D3FlhVVFrdmDAfP88brL9d/OUjFcbHLTV4C9EljnuWnBaqJRLSMM/5M53UlKIAwcG/0clVdeMx9KOa4ocpqj+JE0YA9jHkHhnWk3y3tCgg3MVRC7BIrsiUALe9Mz4KQzGB5KRS+wTPYKDHqYXcHrf3P6cotf+37iCsbKopTecG7+Lg47/9At5uwDwavLMhCib/M6CBjIyUxuQecHlIIwo+ySuS/GLjc+otPuKVarAA+IYwhQv5VmdFioFS2PbM0w8vTqZ2T2ZGzM=" 
+          export AWS_DEFAULT_REGION=ca-central-1 
+          custodian run --dryrun -s policy.yml
           echo Add other actions to build,
           echo test, and deploy your project.
           
