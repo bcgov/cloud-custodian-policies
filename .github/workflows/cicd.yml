@@ -32,5 +32,10 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
+          sudo pip3 install --upgrade pip
+          export PATH="/home/vsts/.local/bin:$PATH"
+          pip3 install awscli --upgrade 
+          pip install c7n --upgrade
           echo Add other actions to build,
           echo test, and deploy your project.
+          
