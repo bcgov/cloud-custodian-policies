@@ -1,0 +1,58 @@
+# This is a basic workflow to help you get started with Actions
+
+name: ciOnPush
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ cicd ]
+  pull_request:
+    branches: [ cicd ]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  schedule:
+    - cron: '0 14 * * *'
+
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Runs a set of commands using the runners shell to install awscli and c7n
+      - name: Run a multi-line script
+        run: |
+          sudo pip3 install --upgrade pip
+          export PATH="/home/vsts/.local/bin:$PATH"
+          pip3 install awscli --upgrade
+          pip install c7n --upgrade
+
+      # Picksup Creds from Secrets set on github
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          role-duration-seconds: 900
+          role-session-name: startup-sample-project-github-action
+          role-skip-session-tagging: true
+
+      # Runs custodian for all the newly added and modified YAML files
+      # custodian run --dryrun -s out ${changed_file}
+      - id: files
+        uses: jitterbit/get-changed-files@v1
+      - run: |
+          cd policy
+          while read line; do 
+             echo $f ; 
+          done < <(find . -type f)
