@@ -1,0 +1,10 @@
+#Trails enabled y/n
+policies:
+  - name: account-cloudtrail-enabled
+    resource: account
+    region: ca-central-1
+    filters:
+      - type: check-cloudtrail
+        global-events: true
+        multi-region: true
+        running: true

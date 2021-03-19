@@ -1,7 +1,0 @@
-policies:
-    - name: account-with-virtual-mfa
-      resource: account
-      region: us-east-1
-      filters:
-        - type: has-virtual-mfa
-          value: true

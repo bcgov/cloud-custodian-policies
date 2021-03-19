@@ -1,0 +1,28 @@
+#check VPC log flow
+# to do: log-group and email setup 
+policies:
+  - name: vpc-flow-log-check
+    resource: vpc
+    filters:
+      - not:
+           - type: flow-logs
+             enabled: true
+             set-op: or
+             op: equal
+             traffic-type: all
+      #       log-group: myVPCFlowLogs
+             status: active
+
+  #  actions:
+  #    - type: notify
+  #      template: default.html
+  #      priority_header: 1
+  #      subject: "Cloud Custodian - VPC Flow Log(s) Not Setup Properly"
+  #      violation_desc: "The Following Flow Logs Are Invalid:"
+  #      action_desc: "Actions Taken:  Notification Only"
+  #      to:
+  #         - ryan.bluemel@gov.bc.ca
+  #      transport:
+        #   type: sqs
+        #   queue: https://sqs.us-east-1.amazonaws.com/12345678900/cloud-custodian-mailer
+        #   region: ca-central-1
