@@ -54,5 +54,5 @@ jobs:
           cd policy
           while read fileName; do 
              echo Running Policy for file $fileName ; 
-             custodian run --dryrun -s out $fileName ;
+             custodian run --dryrun -s out $fileName || continue
           done < <(find . -type f)
