@@ -52,6 +52,7 @@ jobs:
       - name: Run all policies
         run: |
           cd policy
+          ls -ltr
           while read line; do 
              echo $f ; 
           done < <(find . -type f)
