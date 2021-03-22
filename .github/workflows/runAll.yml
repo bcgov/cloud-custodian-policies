@@ -47,8 +47,9 @@ jobs:
 
       # Runs custodian for all the newly added and modified YAML files
       # custodian run --dryrun -s out ${changed_file}
-      - id: files
-        uses: jitterbit/get-changed-files@v1
+  #    - id: files
+  #      uses: jitterbit/get-changed-files@v1
+      - name: Run all policies
       - run: |
           cd policy
           while read line; do 
