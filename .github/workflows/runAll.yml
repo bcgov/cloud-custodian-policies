@@ -50,7 +50,7 @@ jobs:
   #    - id: files
   #      uses: jitterbit/get-changed-files@v1
       - name: Run all policies
-      - run: |
+        run: |
           cd policy
           while read line; do 
              echo $f ; 
