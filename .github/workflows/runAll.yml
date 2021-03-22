@@ -20,13 +20,13 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # Checks-out cicd branch, so this job can access it
       - uses: actions/checkout@v2
         with:
           ref: cicd
 
       # Runs a set of commands using the runners shell to install awscli and c7n
-      - name: Run a multi-line script
+      - name: Run script to install awscli and custodian
         run: |
           sudo pip3 install --upgrade pip
           export PATH="/home/vsts/.local/bin:$PATH"
@@ -49,7 +49,7 @@ jobs:
       # custodian run --dryrun -s out ${changed_file}
   #    - id: files
   #      uses: jitterbit/get-changed-files@v1
-      - name: Run all policies
+      - name: Run ALL custodian policies in policy folder
         run: |
           cd policy
           while read fileName; do 
