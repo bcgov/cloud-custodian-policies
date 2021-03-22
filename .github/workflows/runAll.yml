@@ -53,7 +53,7 @@ jobs:
         run: |
           cd policy
           while read fileName; do 
-             if [[ ${filename} == *yml ]]; then
+             if [[ ${fileName} == *yml ]]; then
                echo Running Policy for file $fileName ; 
                custodian run --dryrun -s out $fileName || continue
              fi
