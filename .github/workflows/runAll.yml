@@ -32,6 +32,7 @@ jobs:
           export PATH="/home/vsts/.local/bin:$PATH"
           pip3 install awscli --upgrade
           pip install c7n --upgrade
+          custodian version
 
       # Picksup Creds from Secrets set on github
       - name: Configure AWS credentials
@@ -46,11 +47,9 @@ jobs:
           role-skip-session-tagging: true
 
       # Runs custodian for all the newly added and modified YAML files
-      # custodian run --dryrun -s out ${changed_file}
-  #    - id: files
-  #      uses: jitterbit/get-changed-files@v1
       - name: Run ALL custodian policies in policy folder
         run: |
+          custodian version
           cd policy
           while read fileName; do 
              if [[ ${fileName} == *yml ]]; then
