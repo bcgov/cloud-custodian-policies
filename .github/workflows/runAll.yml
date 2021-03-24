@@ -30,7 +30,6 @@ jobs:
         run: |
           sudo pip3 install --upgrade pip
           export PATH="/home/vsts/.local/bin:$PATH"
-          pip3 install awscli --upgrade
           pip install c7n --upgrade
           custodian version
 
