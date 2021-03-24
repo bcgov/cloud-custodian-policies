@@ -60,6 +60,7 @@ jobs:
   #      uses: jitterbit/get-changed-files@v1
       - name: Run ALL custodian policies in policy folder
         run: |
+          export PATH="/home/runner/.local/bin:$PATH"
           cd policy
           while read fileName; do 
              if [[ ${fileName} == *yml ]]; then
