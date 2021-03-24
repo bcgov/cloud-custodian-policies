@@ -29,7 +29,7 @@ jobs:
       - name: Run script to install awscli and custodian
         run: |
           sudo pip3 install --upgrade pip
-          source ~/.profile
+          export PATH="/home/runner/.local/bin:$PATH"
           export PATH="/home/vsts/.local/bin:$PATH"
           pip3 install awscli --upgrade
           pip install c7n --upgrade
