@@ -38,7 +38,19 @@ jobs:
       #export AWS_ACCESS_KEY_ID=${{ secrets.RAM_AWS_ACCESS_KEY_ID }} 
       #export AWS_SECRET_ACCESS_KEY=${{ secrets.RAM_AWS_SECRET_ACCESS_KEY }}
       #export AWS_SESSION_TOKEN=${{ secrets.RAM_AWS_SESSION_TOKEN }}
- 
+
+      # Picksup Creds from Secrets set on github
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          role-duration-seconds: 900
+          role-session-name: startup-sample-project-github-action
+          role-skip-session-tagging: true 
+
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
@@ -46,18 +58,34 @@ jobs:
           export PATH="/home/vsts/.local/bin:$PATH"
           pip3 install awscli --upgrade 
           pip install c7n --upgrade
-          export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} 
-          export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          export AWS_SESSION_TOKEN=${{ secrets.AWS_SESSION_TOKEN }}
-          export AWS_DEFAULT_REGION=ca-central-1 
-          export AWS_ACCESS_KEY_ID="ASIAXDJUAQB3H7DBXHN3" 
-          export AWS_SECRET_ACCESS_KEY="SjRD3v7o3+jdd8JNH01G2AdL2tFoK30b7POQz/Oi" 
-          export AWS_SESSION_TOKEN="FwoGZXIvYXdzEEgaDM7HO069XOqg+v3lnSLtAaunBI9vKXmULSYIPkxjvKL45sDegtv7icHmhuDe5Z3jtGlteaUdQwPqbXmTgpsOXUuCRYf+mRVcRTIQNuUNpIca0+1eGcw5N225Ox1tyRyTKuXtg4Vm+B1w3iJjW4Mo5QPnIMqXBsMdssXj4yUOCpUcuzw9cN41eKAX+eyMUA7K0BbrhPlLPL4EMmVs8RFmCNTMoXwvGxt5yxcero3kPBPwJvzeeydn9NbGlgTEAt72t2EbB4fKKwSLIOpg0uxjolVqAZKMQffXRlImaQdknONAOUTNOeuEd2HFues/Sz1HiHI3PNqpYPcTGlALVCiqyo6DBjIyNWXhepJkHA7afuL+sx/zQlenBI6LLFvvQIu/RdBbHTvj8OvkEb8JaYPilzfm5EEn8FU=" 
-          export AWS_DEFAULT_REGION=ca-central-1 
           export PATH="/home/runner/.local/bin:$PATH"
           echo __________________________________________________________________
           custodian run --dryrun -s out policy/workload/ec2.yml
+          
+
           #custodian run --dryrun -s out policy/common/global/vpc-logging.yml
-          grep Timestamp out/flow-logs-enabled//metadata.json
-          echo __________________________________________________________________
+          #grep Timestamp out/flow-logs-enabled//metadata.json
+          #echo __________________________________________________________________      
+
+      # Runs a set of commands using the runners shell
+      #- name: Run a multi-line script
+      #  run: |
+      #    sudo pip3 install --upgrade pip
+      #    export PATH="/home/vsts/.local/bin:$PATH"
+      #    pip3 install awscli --upgrade 
+      #    pip install c7n --upgrade
+      #    export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} 
+      #    export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #    export AWS_SESSION_TOKEN=${{ secrets.AWS_SESSION_TOKEN }}
+      #    export AWS_DEFAULT_REGION=ca-central-1 
+      #    export AWS_ACCESS_KEY_ID="ASIAXDJUAQB3H7DBXHN3" 
+      #    export AWS_SECRET_ACCESS_KEY="SjRD3v7o3+jdd8JNH01G2AdL2tFoK30b7POQz/Oi" 
+      #    export AWS_SESSION_TOKEN="FwoGZXIvYXdzEEgaDM7HO069XOqg+v3lnSLtAaunBI9vKXmULSYIPkxjvKL45sDegtv7icHmhuDe5Z3jtGlteaUdQwPqbXmTgpsOXUuCRYf+mRVcRTIQNuUNpIca0+1eGcw5N225Ox1tyRyTKuXtg4Vm+B1w3iJjW4Mo5QPnIMqXBsMdssXj4yUOCpUcuzw9cN41eKAX+eyMUA7K0BbrhPlLPL4EMmVs8RFmCNTMoXwvGxt5yxcero3kPBPwJvzeeydn9NbGlgTEAt72t2EbB4fKKwSLIOpg0uxjolVqAZKMQffXRlImaQdknONAOUTNOeuEd2HFues/Sz1HiHI3PNqpYPcTGlALVCiqyo6DBjIyNWXhepJkHA7afuL+sx/zQlenBI6LLFvvQIu/RdBbHTvj8OvkEb8JaYPilzfm5EEn8FU=" 
+      #    export AWS_DEFAULT_REGION=ca-central-1 
+      #    export PATH="/home/runner/.local/bin:$PATH"
+      #    echo __________________________________________________________________
+      #    custodian run --dryrun -s out policy/workload/ec2.yml
+      #    custodian run --dryrun -s out policy/common/global/vpc-logging.yml
+      #    grep Timestamp out/flow-logs-enabled//metadata.json
+      #    echo __________________________________________________________________
           
