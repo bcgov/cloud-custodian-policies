@@ -51,7 +51,8 @@ jobs:
           export AWS_DEFAULT_REGION=ca-central-1 
           export PATH="/home/runner/.local/bin:$PATH"
           echo __________________________________________________________________
-          custodian run --dryrun -s out policy/common/global/vpc-logging.yml
+          custodian run --dryrun -s out policy/workload/ec2.yml
+          #custodian run --dryrun -s out policy/common/global/vpc-logging.yml
           grep Timestamp out/flow-logs-enabled//metadata.json
           echo __________________________________________________________________
           
