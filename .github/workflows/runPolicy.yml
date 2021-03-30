@@ -49,6 +49,7 @@ jobs:
           export AWS_SECRET_ACCESS_KEY=${{ secrets.RAM_AWS_SECRET_ACCESS_KEY }}
           export AWS_SESSION_TOKEN=${{ secrets.RAM_AWS_SESSION_TOKEN }}
           export AWS_DEFAULT_REGION=ca-central-1 
+          export PATH="/home/runner/.local/bin:$PATH"
           echo __________________________________________________________________
           custodian run --dryrun -s out policy/common/global/vpc-logging.yml
           grep Timestamp out/flow-logs-enabled//metadata.json
