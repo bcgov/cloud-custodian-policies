@@ -1,13 +1,13 @@
 # This is a base workflow to help you get started and run a custodian command.
-name: CI_runMugc
+name: runMugc
 
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   #push:
-  #  branches: [ cicd ]
+  #  branches: [ 569-581-controls ]
   #pull_request:
-  #  branches: [ cicd ]
+  #  branches: [ 569-581-controls ]
   #schedule:
   #  - cron: '0 14 * * *'
 

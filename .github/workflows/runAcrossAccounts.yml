@@ -20,10 +20,10 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out cicd branch, so this job can access it
+      # Checks-out 569-581-controls branch, so this job can access it
       - uses: actions/checkout@v2
         with:
-          ref: cicd
+          ref: 569-581-controls
 
       # Runs a set of commands using the runners shell to install awscli and c7n
       - name: Run script to install awscli and custodian

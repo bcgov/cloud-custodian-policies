@@ -1,13 +1,13 @@
-# This workflow is to run Policies on Push and Pull Requests
-name: ciOnPush
+# This workflow is to run Policies on Push and Pull Requests.
+name: CI_onPushOrPullReq
 
 # Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events for the cicd branch
+  # Triggers the workflow on push or pull request events for the main branch
   push:
-    branches: [ cicd ]
+    branches: [ main ]
   pull_request:
-    branches: [ cicd ]
+    branches: [ main ]
   workflow_dispatch:
  
 
@@ -23,7 +23,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a set of commands using the runners shell to install awscli and c7n
+      # Runs a set of commands using the runners shell to install pip, awscli and c7n
       - name: Run a multi-line script
         run: |
           sudo pip3 install --upgrade pip
@@ -44,10 +44,10 @@ jobs:
           role-skip-session-tagging: true
           
       # Runs custodian for all the newly added and modified YAML files
-      # custodian run --dryrun -s out ${changed_file}
       - id: files
         uses: jitterbit/get-changed-files@v1
       - run: |
+          export PATH="/home/runner/.local/bin:$PATH"
           for changed_file in ${{ steps.files.outputs.added_modified }}; do
             echo "Checking file ${changed_file}."
             if [[ ${changed_file} == *yml ]]; then
@@ -63,4 +63,3 @@ jobs:
               fi   
             fi   
           done
-          
