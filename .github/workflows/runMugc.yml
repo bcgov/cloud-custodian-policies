@@ -53,6 +53,6 @@ jobs:
           git clone https://github.com/cloud-custodian/cloud-custodian.git
           echo __________________________________________________________________
           custodian run --dryrun -s out policy/workload/ec2.yml
-          python3 cloud-custodian/tools/ops/mugc.py -c password.yml --dryrun
+          python3 cloud-custodian/tools/ops/mugc.py -c policy/common/testMugc.yml --dryrun
           echo __________________________________________________________________      
           
