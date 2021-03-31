@@ -1,4 +1,4 @@
-#[EC2.6] VPC flow logging should be enabled in all VPCs.
+#[EC2.6] VPC flow logging should be enabled in all VPCs
 #
 #To do/next steps:  then fiter against op value if passes
 policies:
