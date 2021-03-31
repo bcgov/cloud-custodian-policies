@@ -48,6 +48,7 @@ jobs:
       - id: files
         uses: jitterbit/get-changed-files@v1
       - run: |
+          export PATH="/home/runner/.local/bin:$PATH"
           for changed_file in ${{ steps.files.outputs.added_modified }}; do
             echo "Checking file ${changed_file}."
             if [[ ${changed_file} == *yml ]]; then
