@@ -1,0 +1,3 @@
+policies:
+  - name: delete
+    resource: ebs
