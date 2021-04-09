@@ -1,0 +1,3 @@
+#ticket 581
+#-	neptune_enable_audit_log parameter to enable (1)
+#  cant' check against audit log directly, working around to check output  instead
