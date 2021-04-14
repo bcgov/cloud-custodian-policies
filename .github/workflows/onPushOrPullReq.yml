@@ -5,15 +5,15 @@ name: CI_onPushOrPullReq
 on:
   # Triggers the workflow on push or pull request events for the main branch
   push:
-<<<<<<< HEAD
+#<<<<<<< HEAD
 #    branches: [569-581-controls]
-  pull_request:
-    branches: [569-581-controls]
-=======
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
->>>>>>> main
+#  pull_request:
+#    branches: [569-581-controls]
+#=======
+#    branches: [ main ]
+#  pull_request:
+#    branches: [ main ]
+#>>>>>>> main
   workflow_dispatch:
 
 
