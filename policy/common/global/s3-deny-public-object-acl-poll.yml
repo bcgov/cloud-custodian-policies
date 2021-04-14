@@ -1,0 +1,71 @@
+policies:
+
+  - name: s3-deny-public-object-acl-poll
+    resource: s3
+    description: |
+      Appends a bucket policy statement to all existing s3 buckets to
+      deny anyone except for the AWS Logging Services from setting s3
+      objects in the bucket to public-read, public-read-write, or any
+      authenticated AWS user.
+    actions:
+      - type: set-statements
+        statements:
+           - Sid: "DenyS3PublicObjectACL"
+             Effect: "Deny"
+             Action: "s3:PutObjectAcl"
+             NotPrincipal:
+               "AWS":
+                   - "arn:aws:iam::858827067514:root"
+                   - "arn:aws:iam::193672423079:user/logs"
+                   - "arn:aws:iam::210876761215:user/logs"
+                   - "arn:aws:iam::127311923021:root"
+                   - "arn:aws:iam::156460612806:root"
+             Resource:
+                - "arn:aws:s3:::{bucket_name}/*"
+                - "arn:aws:s3:::{bucket_name}"
+             Condition:
+               StringEqualsIgnoreCaseIfExists:
+                  's3:x-amz-acl':
+                      - "public-read"
+                      - "public-read-write"
+                      - "authenticated-read"
+
+  - name: s3-deny-public-object-acl-realtime
+    resource: s3
+    mode:
+      type: cloudtrail
+      events:
+        - CreateBucket
+        - source: 's3.amazonaws.com'
+          event: PutBucketPolicy
+          ids: "requestParameters.bucketName"
+      role: arn:aws:iam::{account_id}:role/Cloud_Custodian_Role
+      timeout: 200
+    description: |
+      Appends a bucket policy statement to an s3 bucket when it detects
+      a policy change to the bucket or a new bucket is created which
+      will deny anyone except some AWS logging services from setting
+      s3 objects in the bucket to public-read, public-read-write, or
+      any authenticated AWS user.
+    actions:
+      - type: set-statements
+        statements:
+          - Sid: "DenyS3PublicObjectACL"
+            Effect: "Deny"
+            Action: "s3:PutObjectAcl"
+            NotPrincipal:
+               "AWS":
+                   - "arn:aws:iam::858827067514:root"
+                   - "arn:aws:iam::193672423079:user/logs"
+                   - "arn:aws:iam::210876761215:user/logs"
+                   - "arn:aws:iam::127311923021:root"
+                   - "arn:aws:iam::156460612806:root"
+            Resource:
+               - "arn:aws:s3:::{bucket_name}/*"
+               - "arn:aws:s3:::{bucket_name}"
+            Condition:
+              StringEqualsIgnoreCaseIfExists:
+                 's3:x-amz-acl':
+                     - "public-read"
+                     - "public-read-write"
+                     - "authenticated-read"
