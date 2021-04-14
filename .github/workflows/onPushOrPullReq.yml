@@ -6,9 +6,9 @@ on:
   # Triggers the workflow on push or pull request events for the main branch
   push:
 <<<<<<< HEAD
-    branches: [ April-09-2021 ]
+    branches: [ main ]
   pull_request:
-    branches: [ April-09-2021 ]
+    branches: [ main ]
 =======
     branches: [ main ]
   pull_request:
