@@ -8,7 +8,7 @@ on:
 <<<<<<< HEAD
     branches: [569-581-controls]
   pull_request:
-    branches: [ 569-581-controls ]
+    branches: [569-581-controls]
 =======
     branches: [ main ]
   pull_request:
