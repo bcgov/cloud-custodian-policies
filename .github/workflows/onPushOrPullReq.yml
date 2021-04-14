@@ -1,21 +1,21 @@
 # This workflow is to run Policies on Push and Pull Requests.
 name: CI_onPushOrPullReq
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events for the main branch
   push:
 <<<<<<< HEAD
-    branches: [ 569-581-controls ]
+    branches: [ April-09-2021 ]
   pull_request:
-    branches: [ 569-581-controls ]
+    branches: [ April-09-2021 ]
 =======
     branches: [ main ]
   pull_request:
     branches: [ main ]
 >>>>>>> main
   workflow_dispatch:
- 
+
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -34,7 +34,7 @@ jobs:
         run: |
           sudo pip3 install --upgrade pip
           export PATH="/home/vsts/.local/bin:$PATH"
-          pip3 install awscli --upgrade 
+          pip3 install awscli --upgrade
           pip install c7n --upgrade
 
       # Picksup Creds from Secrets set on github
@@ -48,7 +48,7 @@ jobs:
           role-duration-seconds: 900
           role-session-name: startup-sample-project-github-action
           role-skip-session-tagging: true
-          
+
       # Runs custodian for all the newly added and modified YAML files
       - id: files
         uses: jitterbit/get-changed-files@v1
@@ -66,6 +66,6 @@ jobs:
                    custodian run -s out ${changed_file}
                 fi
                 echo __________________________________________________________________
-              fi   
-            fi   
+              fi
+            fi
           done
