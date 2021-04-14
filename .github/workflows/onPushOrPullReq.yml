@@ -6,7 +6,7 @@ on:
   # Triggers the workflow on push or pull request events for the main branch
   push:
 <<<<<<< HEAD
-    branches: [ 569-581-controls ]
+    branches: [569-581-controls]
   pull_request:
     branches: [ 569-581-controls ]
 =======
