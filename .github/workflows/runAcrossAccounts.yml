@@ -66,6 +66,6 @@ jobs:
           while read fileName; do 
              if [[ ${fileName} == *yml ]]; then
                echo Running Policy for file $fileName ; 
-               c7n-org run -c accounts.yml --dryrun -s output -u $filename || continue
+               c7n-org run -c accounts.yml -s output -u $fileName --dryrun || continue
              fi
           done < <(find . -type f)
