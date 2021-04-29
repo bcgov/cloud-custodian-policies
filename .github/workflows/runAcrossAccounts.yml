@@ -52,7 +52,23 @@ jobs:
           python3 orgaccounts.py -f accounts.yml \
             --role 'arn:aws:iam::{Id}:role/CloudCustodian' \
             --ou core --ou Dev --ou Test --ou Prod --ou Sandbox --ou UnClass \
-            --regions all
+            -r ap-northeast-1 \
+            -r ap-northeast-2 \
+            -r ap-northeast-3 \
+            -r ap-south-1 \
+            -r ap-southeast-1 \
+            -r ap-southeast-2 \
+            -r ca-central-1 \
+            -r eu-central-1 \
+            -r eu-north-1 \
+            -r eu-west-1 \
+            -r eu-west-2 \
+            -r eu-west-3 \
+            -r sa-east-1 \
+            -r us-east-1 \
+            -r us-east-2 \
+            -r us-west-1 \
+            -r us-west-2 
           cat accounts.yml
 
       - name: Configure AWS credentials
