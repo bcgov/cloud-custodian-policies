@@ -3,6 +3,7 @@ policies:
     description: |
       Checks for ec2 instances
     resource: ec2
+    region: ca-central-1
     # action:
     #   # send notification to security hub
     #   - type: post-finding
