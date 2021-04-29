@@ -52,7 +52,7 @@ jobs:
           python3 orgaccounts.py -f accounts.yml \
             --role 'arn:aws:iam::{Id}:role/CloudCustodian' \
             --ou core --ou Dev --ou Test --ou Prod --ou Sandbox --ou UnClass
-            --regions all
+            --region all
           cat accounts.yml
 
       - name: Configure AWS credentials
