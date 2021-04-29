@@ -28,7 +28,6 @@ jobs:
           sudo pip3 install --upgrade pip
           export PATH="/home/vsts/.local/bin:$PATH"
           pip3 install awscli --upgrade
-          pip install c7n --upgrade
           pip install c7n-org --upgrade
 
       # Picksup Creds from Secrets set on github
@@ -62,6 +61,7 @@ jobs:
       # Run all policies across accounts
       - name: Across accounts run ALL custodian policies in policy folder
         run: |
+          set +x
           export PATH="/home/runner/.local/bin:$PATH"
           cd policy
           while read fileName; do 
