@@ -63,7 +63,6 @@ jobs:
       # Run all policies across accounts
       - name: Across accounts run ALL custodian policies in policy folder
         run: |
-          export PATH="/home/runner/.local/bin:$PATH"
           cd policy
           while read fileName; do 
              if [[ ${fileName} == *yml ]]; then
