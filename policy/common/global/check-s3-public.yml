@@ -1,4 +1,5 @@
-- name: check-s3-public
-  resource: s3
-  filters:
-    - type: s3-public-block
+policies:
+  - name: check-s3-public
+    resource: s3
+    filters:
+      - type: s3-public-block

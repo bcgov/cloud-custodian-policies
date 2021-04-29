@@ -1,16 +1,17 @@
 #[IAM.8] Unused IAM user credentials should be removed
 # to do: check against federated and service accounts
-- name: iam-mfa-active-keys-no-login
-  resource: iam-user
-  filters:
-    - type: credential
-      key: mfa_active
-      value: true
-    - type: credential
-      key: password_last_used
-      value: absent
-    - type: credential
-      key: access_keys.last_used_date
-      value_type: age
-      value: 30
-      op: less-than
+policies:
+  - name: iam-mfa-active-keys-no-login
+    resource: iam-user
+    filters:
+      - type: credential
+        key: mfa_active
+        value: true
+      - type: credential
+        key: password_last_used
+        value: absent
+      - type: credential
+        key: access_keys.last_used_date
+        value_type: age
+        value: 30
+        op: less-than
