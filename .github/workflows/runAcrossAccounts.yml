@@ -52,6 +52,7 @@ jobs:
           python3 orgaccounts.py -f accounts.yml \
             --role 'arn:aws:iam::{Id}:role/CloudCustodian' \
             --ou core
+          cat accounts.yml
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
