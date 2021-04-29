@@ -51,7 +51,7 @@ jobs:
           wget https://raw.githubusercontent.com/cloud-custodian/cloud-custodian/master/tools/c7n_org/scripts/orgaccounts.py
           python3 orgaccounts.py -f accounts.yml \
             --role 'arn:aws:iam::{Id}:role/CloudCustodian' \
-            --ou core --ou Dev --ou Test --ou Prod --ou Sandbox --ou UnClass \
+            --ou core --ou Dev --ou Test --ou Prod --ou Sandbox --ou UnClass
           cat accounts.yml
 
       - name: Configure AWS credentials
