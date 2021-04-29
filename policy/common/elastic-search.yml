@@ -1,5 +1,0 @@
-# ticket 581
-#  chechk against monitor at (cluster,  index, document, field level)
-# -	Enable ‘   "Resource": "cw_log_group_arn"’ - https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/audit-logs.html
-#-	endpoint for Amazon Elasticsearch Service is only accessible within the customer VPC
-# -	set and enforece minimum TLS version
