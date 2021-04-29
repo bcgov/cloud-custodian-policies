@@ -61,12 +61,11 @@ jobs:
       # Run all policies across accounts
       - name: Across accounts run ALL custodian policies in policy folder
         run: |
-          set +x
           export PATH="/home/runner/.local/bin:$PATH"
           cd policy
           while read fileName; do 
              if [[ ${fileName} == *yml ]]; then
                echo Running Policy for file $fileName ; 
-               c7n-org run -c accounts.yml -s output -u $filename --dryrun || continue
+               c7n-org run -c accounts.yml --dryrun -s output -u $filename || continue
              fi
           done < <(find . -type f)
