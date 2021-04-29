@@ -23,11 +23,8 @@ jobs:
       - uses: actions/checkout@v2
 
       # Runs a set of commands using the runners shell to install awscli and c7n
-      - name: Run script to install awscli and custodian
+      - name: Run script to install custodian
         run: |
-          sudo pip3 install --upgrade pip
-          export PATH="/home/vsts/.local/bin:$PATH"
-          pip3 install awscli --upgrade
           pip install c7n-org --upgrade
 
       # Picksup Creds from Secrets set on github
