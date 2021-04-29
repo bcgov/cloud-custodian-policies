@@ -38,10 +38,10 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
-          # role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-          # role-duration-seconds: 900
-          # role-session-name: startup-sample-project-github-action
-          # role-skip-session-tagging: true
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          role-duration-seconds: 900
+          role-session-name: github-action
+          role-skip-session-tagging: true
 
       # Run a script to generate config file required for c7n-org, accounts.yml
       # Alternatively, you can create this manually. see https://cloudcustodian.io/docs/tools/c7n-org.html
@@ -51,6 +51,13 @@ jobs:
           wget https://raw.githubusercontent.com/cloud-custodian/cloud-custodian/master/tools/c7n_org/scripts/orgaccounts.py
           python3 orgaccounts.py -f accounts.yml \
             --role 'arn:aws:iam::{Id}:role/CloudCustodian'
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
 
       # Run all policies across accounts
       - name: Across accounts run ALL custodian policies in policy folder
