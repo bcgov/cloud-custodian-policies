@@ -1,0 +1,10 @@
+policies:
+  - name: lambda-name-check
+    resource: lambda
+    description: Find all the lambdas, then filter out non-PBMM, regardless of VPC or not
+    region: ca-central-1
+    filters:
+      - type: value
+        key: FunctionName
+        op: regex
+        value: '^(?!PBMM).*$'
