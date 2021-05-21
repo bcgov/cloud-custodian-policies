@@ -20,19 +20,16 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out 569-581-controls branch, so this job can access it
       - uses: actions/checkout@v2
-        with:
-          ref: 569-581-controls
 
       # Runs a set of commands using the runners shell to install awscli and c7n
-      - name: Run script to install awscli and custodian
+      - name: Set up Python
+        uses: actions/setup-python@v2
+
+      - name: Install custodian
         run: |
-          sudo pip3 install --upgrade pip
-          export PATH="/home/vsts/.local/bin:$PATH"
-          pip3 install awscli --upgrade
-          pip install c7n --upgrade
-          pip install c7n-org --upgrade
+          python -m pip install --upgrade pip
+          pip install c7n-org
 
       # Picksup Creds from Secrets set on github
       - name: Configure AWS credentials
@@ -41,9 +38,9 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
-          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME_C7N_ORG }}
           role-duration-seconds: 900
-          role-session-name: startup-sample-project-github-action
+          role-session-name: github-action
           role-skip-session-tagging: true
 
       # Run a script to generate config file required for c7n-org, accounts.yml
@@ -52,16 +49,42 @@ jobs:
         run: |
           cd policy
           wget https://raw.githubusercontent.com/cloud-custodian/cloud-custodian/master/tools/c7n_org/scripts/orgaccounts.py
-          python3 orgaccounts.py -f accounts.yml
+          python3 orgaccounts.py -f accounts.yml \
+            --role 'arn:aws:iam::{Id}:role/CloudCustodian' \
+            --ou core --ou Dev --ou Test --ou Prod --ou Sandbox --ou UnClass \
+            -r ap-northeast-1 \
+            -r ap-northeast-2 \
+            -r ap-northeast-3 \
+            -r ap-south-1 \
+            -r ap-southeast-1 \
+            -r ap-southeast-2 \
+            -r ca-central-1 \
+            -r eu-central-1 \
+            -r eu-north-1 \
+            -r eu-west-1 \
+            -r eu-west-2 \
+            -r eu-west-3 \
+            -r sa-east-1 \
+            -r us-east-1 \
+            -r us-east-2 \
+            -r us-west-1 \
+            -r us-west-2 
+          cat accounts.yml
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
 
       # Run all policies across accounts
       - name: Across accounts run ALL custodian policies in policy folder
         run: |
-          export PATH="/home/runner/.local/bin:$PATH"
           cd policy
           while read fileName; do 
              if [[ ${fileName} == *yml ]]; then
                echo Running Policy for file $fileName ; 
-               c7n-org run -c accounts.yml -s output -u $filename --dryrun || continue
+               c7n-org run -c accounts.yml -s output -u $fileName --dryrun || continue
              fi
           done < <(find . -type f)
