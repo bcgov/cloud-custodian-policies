@@ -9,6 +9,9 @@
 
 ## Install
 
+https://cloudcustodian.io/docs/quickstart/index.html#install-cc
+
+
 ```bash
 pip install -r requirements.txt
 ```
